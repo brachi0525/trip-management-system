@@ -1,0 +1,13 @@
+import mongoose from "mongoose";
+import {teacher}  from "../../types/teacher"
+
+const { Schema } = mongoose;
+
+const teacherSchema =new Schema<teacher>({
+    fullName:  { type: String, required: true },
+    class:  { type: String, required: true },
+    teacherID:  { type: String, required: true },
+
+})
+const Teacher= mongoose.model("Teacher",teacherSchema);
+export default Teacher;
