@@ -9,5 +9,5 @@ const teacherSchema =new Schema<teacher>({
     teacherID:  { type: String, required: true },
 
 })
-const Teacher= mongoose.model("Teacher",teacherSchema);
+const Teacher= mongoose.model<teacher>("Teacher",teacherSchema);
 export default Teacher;

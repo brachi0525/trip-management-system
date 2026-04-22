@@ -9,5 +9,5 @@ const studentSchema =new Schema<student>({
     studentID:  { type: String, required: true },
 
 })
-const Student= mongoose.model("Student",studentSchema);
+const Student= mongoose.model<student>("Student",studentSchema);
 export default Student;
