@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 
 const studentSchema =new Schema<student>({
     fullName:  { type: String, required: true },
-    class:  { type: String, required: true },
-    studentID:  { type: String, required: true },
+    classNumber:  { type: String, required: true },
+    studentID:  { type: String, required: true ,unique:true},
 
 })
 const Student= mongoose.model<student>("Student",studentSchema);

@@ -1,5 +1,6 @@
 export interface teacher{
     fullName: String,
-    class: String,
+    classNumber: String,
     teacherID:String
+    password:string
 } 

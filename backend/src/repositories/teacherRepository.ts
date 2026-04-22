@@ -7,6 +7,9 @@ export default class teacherRepository {
         return Teacher.create(data);
     }
     async getAll(): Promise<teacher[]> {
-        return Teacher.find()||{};
+        return Teacher.find() || {};
+    }
+    async getByID(id:String): Promise<teacher|null> {
+        return Teacher.findOne({teacherID:id});
     }
 }

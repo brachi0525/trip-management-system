@@ -2,7 +2,19 @@ import { Request, Response } from "express";
 import { teacherService } from "../servises/teacherService";
 
 const teacherServe = new teacherService()
+const login = async (req: Request, res: Response) => {
+    try {
+        const loginData = req.body
+        const token = await teacherServe.login(req.body)
+        res.status(201).json(token);
+        console.log(`token ${token}`)
+    } catch (err: any) {
+        res.status(500).json({ message: err.message });
 
+    }
+
+
+}
 const createTeacher = async (req: Request, res: Response) => {
     try {
         const techeData = req.body
@@ -22,4 +34,4 @@ const getTeachers = async (req: Request, res: Response) => {
         res.status(500).json({ message: err.message });
     }
 }
-export { createTeacher, getTeachers }
+export { createTeacher, getTeachers ,login}

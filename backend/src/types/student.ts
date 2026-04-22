@@ -1,5 +1,5 @@
 export interface student{
     fullName: String,
-    class: String,
+    classNumber: String,
     studentID:String
 } 
