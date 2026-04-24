@@ -1,5 +1,5 @@
 import Student from "../db/models/student";
-import { student } from "../types/student";
+import { student } from "../../../types/student";
 export default class studentRepositoty {
 
     async create(data: student): Promise<student> {

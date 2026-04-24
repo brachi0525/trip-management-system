@@ -1,20 +1,21 @@
-import { error } from "node:console";
 import teacherRepositoty from "../repositories/teacherRepository";
-import { teacher } from "../types/teacher";
+import { teacher } from "../../../types/teacher";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 export class teacherService {
     private teacherRepo = new teacherRepositoty();
-
     async createteacher(data: teacher) {
+
         const { fullName, teacherID, password, classNumber } = data
+
         const pass = await bcrypt.hash(password, 10);
-        const newt = {
-            fullName,
-            teacherID,
-            classNumber,
+        const newt: teacher = {
+            fullName: fullName,
+            teacherID: teacherID,
+            classNumber: classNumber,
             password: pass,
         }
+
         const newteacher = await this.teacherRepo.create(newt);
         return newteacher;
     }
@@ -22,18 +23,15 @@ export class teacherService {
         const { teacherID = '', password } = data;
         const teacherr = await this.teacherRepo.getByID(teacherID);
         if (!teacherr || !password)
-            throw error
+            throw new Error("Teacher not found");
         if (await bcrypt.compare(password, teacherr.password)) {
-            const token = jwt.sign({ id: teacherID, role: "teacher" }, "123")
+            const JWT_SECRET = process.env.JWT_SECRET;
+
+            const token = jwt.sign({ id: teacherID, role: "teacher" },JWT_SECRET!)
             return token
         }
         else
-            throw error
-
-
-
-
-
+            throw new Error("Invalid credentials");
 
     }
 

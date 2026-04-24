@@ -1,5 +1,5 @@
 import studentRepositoty from "../repositories/studentRepository";
-import { student } from "../types/student";
+import { student } from "../../../types/student";
 
 export class studentService {
     private studentRepo = new studentRepositoty();
