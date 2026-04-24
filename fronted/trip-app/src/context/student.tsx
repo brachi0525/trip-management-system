@@ -1,0 +1,63 @@
+import { createContext, useState } from "react";
+import type { student } from "../../../../types/student";
+
+export type StudentContextType = {
+    students: student[];
+    registerStudent: (student: student) => Promise<boolean>;
+    getStudents: () => Promise<void>;
+
+};
+
+export const StudentContext = createContext<Partial<StudentContextType>>({});
+
+export const StudentProvider = (props: any) => {
+    const [students, setStudents] = useState<student[]>([]);
+
+    const registerStudent = async (student: student) => {
+        try {
+            const response = await fetch("http://localhost:3000/student/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(student),
+            });
+
+            const data = await response.json();
+
+            setStudents((prev) => [...prev, data]);
+            return true;
+        } catch (error) {
+            return false
+            console.log("register error", error);
+        }
+    };
+    const getStudents = async () => {
+        try {
+            const response = await fetch(
+                "http://localhost:3000/student/",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const data = await response.json();
+            setStudents(data);
+        } catch (error) {
+
+        }
+    }
+        const contextValue: StudentContextType = {
+            students,
+            registerStudent,
+            getStudents,
+        };
+
+        return (
+            <StudentContext.Provider value={contextValue}  >
+                {props.children}
+            </StudentContext.Provider>
+        );
+    };

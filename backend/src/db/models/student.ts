@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {student}  from "../../types/student"
+import {student}  from "../../../../types/student"
 
 const { Schema } = mongoose;
 

@@ -3,7 +3,9 @@ import cors from "cors"
 import { connectDB } from "./db/connectDB";
 import teacherRoute from "./routes/teacherRoute";
 import studentRoute  from "./routes/studentRoute";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -11,7 +13,7 @@ app.use(express.json());
 
     connectDB();
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });

@@ -18,9 +18,11 @@ const login = async (req: Request, res: Response) => {
 const createTeacher = async (req: Request, res: Response) => {
     try {
         const techeData = req.body
-        const result = await teacherServe.createteacher(techeData)
+        const result = await teacherServe.createteacher(req.body)
+        console.log(result)
         res.status(201).json(result);
     } catch (err: any) {
+        console.log(err.message)
         res.status(500).json({ message: err.message });
     }
 }

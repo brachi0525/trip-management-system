@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {teacher}  from "../../types/teacher"
+import {teacher}  from "../../../../types/teacher"
 
 const { Schema } = mongoose;
 

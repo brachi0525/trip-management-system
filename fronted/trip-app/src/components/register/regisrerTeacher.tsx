@@ -1,42 +1,35 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-
+import React, { useEffect, useState, useContext } from 'react'
+import { TeacherContext } from "../../context/teacher"
+import { useNavigate } from 'react-router';
 export const RegisrerTeacher = () => {
+    const { registerTeacher } = useContext(TeacherContext);
 
-    const [fullName, SetFullName] = useState("")
-    const [classNumber, SetClassNumber] = useState("")
-    const [teacherID, SetTeacherID] = useState("")
-    const [password, SetPassword] = useState("")
+    const [formData, setFormData] = useState({ fullName: "", classNumber: "", teacherID: "", password: "" });
+    const navigate = useNavigate();
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
-
-
-
-    const addTeacher = async (event:any) => {
+    const addTeacher = async (e) => {
         try {
-            event.preventDefault();
-            const newTeacher = {
-                fullName: event.target.fullName.value,
-                classNumber: event.target.classNumber.value,
-                teacherID: event.target.teacherID.value,
-                password: event.target.password.value
-            }
-            event.preventDefault();
+            e.preventDefault();
+            const newTeacher = { ...formData };
+            setFormData({ fullName: "", classNumber: "", teacherID: "", password: "" });
 
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 'Authorization': 'Bearer my-token',
-                    // 'My-Custom-Header': 'foobar'
-                },
-                body: JSON.stringify(newTeacher)
-            };
-            const response = await fetch("http://localhost:3000/teacher/register", requestOptions)
-            console.log(response)
+            if (await registerTeacher(newTeacher)) {
+                alert("Teacher registered successfully ");
+                navigate("/Login");
+            }
+
         } catch (error) {
             console.log(error)
+
         }
-    }
+    };
+
 
 
     return (
@@ -45,15 +38,15 @@ export const RegisrerTeacher = () => {
             <h1>רישום מורה</h1>
             <br />
             <form onSubmit={addTeacher}>
-                <input type="text" placeholder="enter fullName" name="fullName" /> <br />
-                <input type="text" placeholder="enter classNumber" name="classNumber" /> <br />
-                <input type="text" placeholder="enter teacherID" name="teacherID" /> <br />
-                <input type="password" placeholder="enter password" name="password" /> <br />
-
+                <input type="text" name="fullName" placeholder="enter full name" value={formData.fullName} onChange={handleChange} /><br /><br />
+                <input type="text" name="classNumber" placeholder="enter classNumber" value={formData.classNumber} onChange={handleChange} /><br /><br />
+                <input type="text" name="teacherID" placeholder="enter teacherID" value={formData.teacherID} onChange={handleChange} /><br /><br />
+                <input type="password" name="password" placeholder="enter password" value={formData.password} onChange={handleChange} /><br />
                 <br />
                 <button type="submit">הירשם</button>
             </form>
         </>
     )
 }
+
 
