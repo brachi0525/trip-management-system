@@ -13,6 +13,8 @@ import { DashbordStudents } from './components/dashbord/dashbordStudents.tsx'
 import DashbordMenu from './components/dashbord/dashbordMenu.tsx'
 import App from './App.tsx'
 import { PrivateRoute } from './components/privateWrapper.tsx'
+import { Map } from './components/map/map.tsx'
+import  "./App.css";
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -29,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/DashbordTeacher' element={<PrivateRoute><DashbordTeacher /></PrivateRoute>} />
             <Route path='/DashbordStudent' element={<PrivateRoute><DashbordStudents /></PrivateRoute>} />
 
+            <Route path='/Map' element={<PrivateRoute><Map /></PrivateRoute>} />
 
 
           </Routes>

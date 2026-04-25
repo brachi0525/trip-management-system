@@ -3,6 +3,7 @@ import cors from "cors"
 import { connectDB } from "./db/connectDB";
 import teacherRoute from "./routes/teacherRoute";
 import studentRoute  from "./routes/studentRoute";
+import locationRoute from "./routes/locationRoute"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -24,3 +25,4 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use('/teacher',teacherRoute);
 app.use('/student',studentRoute);
+app.use('/map',locationRoute);
