@@ -2,8 +2,10 @@ import express, { Request, Response } from "express";
 import cors from "cors"
 import { connectDB } from "./db/connectDB";
 import teacherRoute from "./routes/teacherRoute";
-import studentRoute  from "./routes/studentRoute";
+import studentRoute from "./routes/studentRoute";
 import locationRoute from "./routes/locationRoute"
+import {Socket} from './socket'
+import http from "http"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,10 +14,13 @@ app.use(cors());
 app.use(express.json());
 
 
-    connectDB();
+connectDB();
+
+const server = http.createServer(app);
+Socket(server);
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
 app.get("/", (req: Request, res: Response) => {
@@ -23,6 +28,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-app.use('/teacher',teacherRoute);
-app.use('/student',studentRoute);
-app.use('/map',locationRoute);
+app.use('/teacher', teacherRoute);
+app.use('/student', studentRoute);
+app.use('/map', locationRoute);

@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import type { teacher } from "../../../../types/teacher";
 import type {location} from "../../../../types/location"
+
 export type TeacherContextType = {
     teachers: teacher[];
     registerTeacher: (teacher: teacher) => Promise<boolean>;

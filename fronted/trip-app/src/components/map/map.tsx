@@ -1,40 +1,49 @@
-import { MapContainer, TileLayer,Marker,Popup, Tooltip } from "react-leaflet";
-import React, { useContext, useEffect, useState } from 'react'
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
+import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import "./map.css"
-import { TeacherContext } from "../../context/teacher";
+import "./map.css";
+import { io } from "socket.io-client";
+
 export const Map = () => {
-    const {getLocation}= useContext(TeacherContext);
-    const [locationData, setLocationData] =useState([]);
-     useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const data = await getLocation();
-            setLocationData(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const [locations, setLocations] = useState([]);
 
-    fetchData();
-}, []);
-  
-    
+    useEffect(() => {
+        const socket = io("http://localhost:3000");
+
+        socket.on("allLocations", (data) => {
+            setLocations(data);
+        });
+
+        socket.on("receiveLocation", (newLocation) => {
+            setLocations((prev) => {
+                const filtered = prev.filter((x) => x.id !== newLocation.id);
+                return [...filtered, newLocation];
+            });
+        });
+
+
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
     return (
-
-        <MapContainer center={[31.9325, 35.0445]} zoom={10}  >
+        <MapContainer center={[31.9325, 35.0445]} zoom={7}>
             <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {
-                locationData.map(marker => (
-                    <Marker position={marker.Coordinates} >
-                        <Popup ><h1>{marker.id}</h1></Popup>
-                                <Tooltip direction="right" offset={[0, 0]} opacity={1} permanent>{marker.id}</Tooltip>
 
-                        </Marker>
-                ))
-            }
+            {locations.map((marker) => (
+                <Marker key={marker.id} position={marker.Coordinates}>
+                    <Popup>{marker.id}</Popup>
+                    <Tooltip permanent>{marker.id}</Tooltip>
+                </Marker>
+            ))}
         </MapContainer>
+    );
+};
 
-    )
-}
+
+
+
+
 

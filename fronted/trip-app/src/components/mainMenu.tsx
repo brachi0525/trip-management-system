@@ -1,10 +1,12 @@
 import { NavLink } from "react-router"
+import './style.css'
+
  const MainMenu = () => {
 
-    return <nav>
-        <NavLink to="/RegisrerTeacher">רישום מורה</NavLink> <br />
-        <NavLink to="/Login"> כניסת מורה</NavLink><br />
-        <NavLink to="/RegisterStudent"> רישום תלמידה </NavLink><br />
+    return <nav className="navbar" >
+        <NavLink to="/RegisrerTeacher">רישום מורה</NavLink> 
+        <NavLink to="/Login"> כניסת מורה</NavLink>
+        <NavLink to="/RegisterStudent"> רישום תלמידה </NavLink>
 
 
     </nav>
