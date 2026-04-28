@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { TeacherContext } from "../../context/teacher"
 import { useNavigate } from 'react-router';
-
 function Login() {
 
     const [loginData, setLoginData] = useState({ teacherID: "", password: "" });
@@ -20,32 +19,34 @@ function Login() {
             e.preventDefault();
             setLoginData({ teacherID: "", password: "" });
 
-            const token = await loginTeacher(loginData.teacherID, loginData.password);
-
+            const resalt = await loginTeacher(loginData.teacherID, loginData.password);
+            const token = resalt.token
             if (token) {
                 localStorage.setItem("token", token);
                 alert("Login successful");
-                navigate("/DashbordMenu")
+                navigate("/Map")
             } else {
                 alert("Login failed");
             }
         } catch (error) {
+            alert(error.message)
             console.log(error)
 
         }
     };
     return (
-        <>
+        <div className="container">
+
             <br />
             <h1>כניסת מורה</h1>
             <br />
             <form onSubmit={login}>
-                <input type="text" name="teacherID" placeholder="enter teacherID" value={loginData.teacherID} onChange={handleChange} /><br /><br />
-                <input type="password" name="password" placeholder="enter password" value={loginData.password} onChange={handleChange} /><br />
+                <input type="text" name="teacherID" placeholder="enter teacherID" value={loginData.teacherID} onChange={handleChange} required/><br /><br />
+                <input type="password" name="password" placeholder="enter password" value={loginData.password} onChange={handleChange} required/><br />
                 <br />
                 <button type="submit">היכנס</button>
             </form>
-        </>
+        </div>
     )
 }
 

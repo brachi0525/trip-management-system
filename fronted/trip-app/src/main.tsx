@@ -14,7 +14,7 @@ import DashbordMenu from './components/dashbord/dashbordMenu.tsx'
 import App from './App.tsx'
 import { PrivateRoute } from './components/privateWrapper.tsx'
 import { Map } from './components/map/map.tsx'
-import  "./App.css";
+import "./App.css";
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -23,6 +23,8 @@ createRoot(document.getElementById('root')!).render(
           <MainMenu />
           <DashbordMenu />
           <Routes >
+            <Route path='/' element={<Login />} />
+
             <Route path='/RegisrerTeacher' element={<RegisrerTeacher />} />
             <Route path='/RegisterStudent' element={<RegisterStudent />} />
             <Route path='/Login' element={<Login />} />

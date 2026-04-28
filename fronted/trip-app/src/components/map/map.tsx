@@ -29,7 +29,7 @@ export const Map = () => {
     }, []);
 
     return (
-        <MapContainer center={[31.9325, 35.0445]} zoom={7}>
+       <MapContainer center={[31.7683, 35.2137]} zoom={10}>
             <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
             {locations.map((marker) => (

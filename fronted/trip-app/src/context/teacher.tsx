@@ -1,11 +1,11 @@
 import { createContext, useState } from "react";
 import type { teacher } from "../../../../types/teacher";
-import type {location} from "../../../../types/location"
+import type { location } from "../../../../types/location"
 
 export type TeacherContextType = {
     teachers: teacher[];
     registerTeacher: (teacher: teacher) => Promise<boolean>;
-    loginTeacher: (teacherID: string, password: string) => Promise<string>;
+    loginTeacher: (teacherID: string, password: string) => Promise<{token:string} >;
     getTeachers: () => Promise<void>;
     getLocation: () => Promise<location[]>;
 };
@@ -27,14 +27,17 @@ export const TeacherProvider = (props: any) => {
                     body: JSON.stringify(teacher),
                 }
             );
-
             const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "failed");
+            }
 
             setTeachers((prev) => [...prev, data]);
             return true
         } catch (error) {
-            return false
             console.error("register error:", error);
+            throw error
         }
     };
 
@@ -52,11 +55,14 @@ export const TeacherProvider = (props: any) => {
             );
 
             const data = await response.json();
+              if (!response.ok) {
+                throw new Error(data.message || "failed");
+            }
             console.log(data)
             return data;
         } catch (error) {
             console.error("login error:", error);
-            return null;
+            throw error;
         }
     };
     const getTeachers = async () => {

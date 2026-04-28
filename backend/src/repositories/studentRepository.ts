@@ -8,5 +8,7 @@ export default class studentRepositoty {
     async getAll(): Promise<student[]> {
         return Student.find();
     }
-
+    async getByID(id: String): Promise<student | null> {
+        return Student.findOne({ studentID: id });
+    }
 }

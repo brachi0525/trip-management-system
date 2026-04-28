@@ -9,15 +9,15 @@ const createStudent = async (req: Request, res: Response) => {
         const result = await studentServe.createstudent(techeData)
         res.status(201).json(result);
     } catch (err: any) {
-        res.status(500).json({ message: err.message });
+        return res.status(err.status||500).json({ message: err.message });
     }
 }
 const getStudents = async (req: Request, res: Response) => {
     try {
         const result = await studentServe.getstudents()
-        res.status(201).json(result);
+        res.status(200).json(result);
     } catch (err: any) {
-        res.status(500).json({ message: err.message });
+        return res.status(err.status||500).json({ message: err.message });
     }
 }
 export{createStudent,getStudents}

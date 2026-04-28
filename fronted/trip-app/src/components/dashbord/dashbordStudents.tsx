@@ -44,19 +44,20 @@ export const DashbordStudents = () => {
     ));
 
     return (
-        <>
+        <div className="container">
+            <h1>טבלת תלמידות</h1>
+
             <form >
                 <input type="text" name="fullName" placeholder="search  name" value={filterData.fullName} onChange={handleChange} />
-                <input type="text" name="classNumber" placeholder="search classNumber" value={filterData.classNumber} onChange={handleChange} />
                 <input type="text" name="studentID" placeholder="search studentID" value={filterData.studentID} onChange={handleChange} />
+                <input type="text" name="classNumber" placeholder="search classNumber" value={filterData.classNumber} onChange={handleChange} />
                 <br />
                 <button type="button" onClick={handleSearch}>חפש</button>
                 <button type="button" onClick={handleClear} >נקה חיפוש</button>
 
             </form>
 
-            <h3>Students</h3>
             <ul>{listStudents}</ul>
-        </>
+        </div>
     )
 }

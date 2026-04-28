@@ -18,14 +18,16 @@ export const RegisrerTeacher = () => {
             e.preventDefault();
             const newTeacher = { ...formData };
             setFormData({ fullName: "", classNumber: "", teacherID: "", password: "" });
-
-            if (await registerTeacher(newTeacher)) {
-                alert("Teacher registered successfully ");
+            const teacher = await registerTeacher(newTeacher)
+            if (teacher) {
+                console.log(teacher)
+                alert("Teacher added  successfully ");
                 navigate("/Login");
             }
 
         } catch (error) {
-            console.log(error)
+             alert(error.message);
+            console.log(error);
 
         }
     };
@@ -33,19 +35,19 @@ export const RegisrerTeacher = () => {
 
 
     return (
-        <>
+       <div className="container">
             <br />
             <h1>רישום מורה</h1>
             <br />
             <form onSubmit={addTeacher}>
-                <input type="text" name="fullName" placeholder="enter full name" value={formData.fullName} onChange={handleChange} /><br /><br />
-                <input type="text" name="classNumber" placeholder="enter classNumber" value={formData.classNumber} onChange={handleChange} /><br /><br />
-                <input type="text" name="teacherID" placeholder="enter teacherID" value={formData.teacherID} onChange={handleChange} /><br /><br />
-                <input type="password" name="password" placeholder="enter password" value={formData.password} onChange={handleChange} /><br />
+                <input type="text" name="fullName" placeholder="enter full name" value={formData.fullName} onChange={handleChange} required/><br /><br />
+                <input type="text" name="classNumber" placeholder="enter classNumber" value={formData.classNumber} onChange={handleChange}required /><br /><br />
+                <input type="text" name="teacherID" placeholder="enter teacherID" value={formData.teacherID} onChange={handleChange} required/><br /><br />
+                <input type="password" name="password" placeholder="enter password" value={formData.password} onChange={handleChange} required/><br />
                 <br />
                 <button type="submit">הירשם</button>
             </form>
-        </>
+      </div>
     )
 }
 

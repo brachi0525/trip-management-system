@@ -24,12 +24,15 @@ export const StudentProvider = (props: any) => {
             });
 
             const data = await response.json();
-
+            if (!response.ok) {
+                throw new Error(data.message || "failed");
+            }
             setStudents((prev) => [...prev, data]);
             return true;
         } catch (error) {
-            return false
             console.log("register error", error);
+            throw error
+
         }
     };
     const getStudents = async () => {
@@ -49,15 +52,15 @@ export const StudentProvider = (props: any) => {
 
         }
     }
-        const contextValue: StudentContextType = {
-            students,
-            registerStudent,
-            getStudents,
-        };
-
-        return (
-            <StudentContext.Provider value={contextValue}  >
-                {props.children}
-            </StudentContext.Provider>
-        );
+    const contextValue: StudentContextType = {
+        students,
+        registerStudent,
+        getStudents,
     };
+
+    return (
+        <StudentContext.Provider value={contextValue}  >
+            {props.children}
+        </StudentContext.Provider>
+    );
+};

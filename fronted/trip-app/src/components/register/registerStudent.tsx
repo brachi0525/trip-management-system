@@ -20,30 +20,32 @@ export const RegisterStudent = () => {
             e.preventDefault();
             const newstudent = { ...formData };
             setFormData({ fullName: "", classNumber: "", studentID: "", });
-          if(await registerStudent(newstudent)) 
-            alert("Student registered successfully")
+            if (await registerStudent(newstudent)) {
+                alert("Student registered successfully")
+                navigate("/DashbordStudent")
+            }
         } catch (error) {
             console.log(error);
-            alert("Error registering student");
+            alert(error.message);
 
         }
-        navigate("/DashbordStudent")
     };
 
 
 
     return (
-        <>
+        <div className="container">
+
             <br />
             <h1>רישום תלמידה</h1>
             <br />
             <form onSubmit={addStudent}>
-                <input type="text" name="fullName" placeholder="enter full name" value={formData.fullName} onChange={handleChange} /><br /><br />
-                <input type="text" name="classNumber" placeholder="enter classNumber" value={formData.classNumber} onChange={handleChange} /><br /><br />
-                <input type="text" name="studentID" placeholder="enter studentID" value={formData.studentID} onChange={handleChange} /><br /><br />
+                <input type="text" name="fullName" placeholder="enter full name" value={formData.fullName} onChange={handleChange} required/><br /><br />
+                <input type="text" name="classNumber" placeholder="enter classNumber" value={formData.classNumber} onChange={handleChange}required /><br /><br />
+                <input type="text" name="studentID" placeholder="enter studentID" value={formData.studentID} onChange={handleChange} required/><br /><br />
                 <button type="submit">הירשם</button>
             </form>
-        </>
+        </div>
     )
 }
 
