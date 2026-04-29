@@ -37,16 +37,21 @@ export const StudentProvider = (props: any) => {
     };
     const getStudents = async () => {
         try {
+            const token = localStorage.getItem("token");
+
             const response = await fetch(
                 "http://localhost:3000/student/",
                 {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`,
+
                     },
                 }
             );
             const data = await response.json();
+            console.log(data)
             setStudents(data);
         } catch (error) {
 

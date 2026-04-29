@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import  { useState, useContext } from 'react'
 import { TeacherContext } from "../../context/teacher"
 import { useNavigate } from 'react-router';
 export const RegisrerTeacher = () => {

@@ -19,7 +19,20 @@ export class studentService {
         return this.studentRepo.create(validStudent);
     }
 
-    async getstudents() {
-        return this.studentRepo.getAll();
+    async getstudents(user: any) {
+        console.log(user)
+        if (user.role === "admin") {
+            return this.studentRepo.getAll();
+        }
+
+        if (user.role === "teacher") {
+            return this.studentRepo.getAll({classNumber:user.classNumber});
+        }
+
+        throw new ErrorType("Unauthorized", 403);
+   
     }
+    async getstudentByID(id: string) {
+    return this.studentRepo.getByID(id);
+}
 }

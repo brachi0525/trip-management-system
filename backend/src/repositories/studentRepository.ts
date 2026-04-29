@@ -5,10 +5,20 @@ export default class studentRepositoty {
     async create(data: student): Promise<student> {
         return Student.create(data);
     }
-    async getAll(): Promise<student[]> {
-        return Student.find();
+    async getAll(filters?: { classNumber?: number; studentID?: string }): Promise<student[]> {
+        const query: any = {};
+
+        if (filters?.classNumber) {
+            query.classNumber = filters.classNumber;
+        }
+
+        if (filters?.studentID) {
+            query.teacherID = filters.studentID;
+        }
+
+        return Student.find(query);
     }
-    async getByID(id: String): Promise<student | null> {
-        return Student.findOne({ studentID: id });
+    async getByID(id: string): Promise<student | null> {
+        return await Student.findOne({ studentID: id });
     }
 }

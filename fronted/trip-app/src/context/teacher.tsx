@@ -5,7 +5,7 @@ import type { location } from "../../../../types/location"
 export type TeacherContextType = {
     teachers: teacher[];
     registerTeacher: (teacher: teacher) => Promise<boolean>;
-    loginTeacher: (teacherID: string, password: string) => Promise<{token:string} >;
+    loginTeacher: (teacherID: string, password: string) => Promise<{ token: string }>;
     getTeachers: () => Promise<void>;
     getLocation: () => Promise<location[]>;
 };
@@ -43,19 +43,23 @@ export const TeacherProvider = (props: any) => {
 
     const loginTeacher = async (teacherID: string, password: string) => {
         try {
+            const token = localStorage.getItem("token");
+
             const response = await fetch(
                 "http://localhost:3000/teacher/login",
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`,
+
                     },
                     body: JSON.stringify({ teacherID, password }),
                 }
             );
 
             const data = await response.json();
-              if (!response.ok) {
+            if (!response.ok) {
                 throw new Error(data.message || "failed");
             }
             console.log(data)
