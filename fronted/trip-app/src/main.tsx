@@ -26,9 +26,8 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/' element={<Login />} />
 
             <Route path='/RegisrerTeacher' element={<RegisrerTeacher />} />
-            <Route path='/RegisterStudent' element={<RegisterStudent />} />
             <Route path='/Login' element={<Login />} />
-            {/* <Route path='/DashbordMenu' element={ <DashbordMenu /> } /> */}
+            <Route path='/RegisterStudent' element={<PrivateRoute><RegisterStudent /></PrivateRoute>} />
 
             <Route path='/DashbordTeacher' element={<PrivateRoute><DashbordTeacher /></PrivateRoute>} />
             <Route path='/DashbordStudent' element={<PrivateRoute><DashbordStudents /></PrivateRoute>} />
