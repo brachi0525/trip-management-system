@@ -25,7 +25,6 @@ export const RegisterStudent = () => {
                 navigate("/DashbordStudent")
             }
         } catch (error) {
-            console.log(error);
             alert(error.message);
 
         }

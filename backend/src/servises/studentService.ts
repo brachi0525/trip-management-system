@@ -20,7 +20,6 @@ export class studentService {
     }
 
     async getstudents(user: any) {
-        console.log(user)
         if (user.role === "admin") {
             return this.studentRepo.getAll();
         }

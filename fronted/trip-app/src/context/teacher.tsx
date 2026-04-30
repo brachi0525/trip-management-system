@@ -36,7 +36,6 @@ export const TeacherProvider = (props: any) => {
             setTeachers((prev) => [...prev, data]);
             return true
         } catch (error) {
-            console.error("register error:", error);
             throw error
         }
     };
@@ -62,10 +61,8 @@ export const TeacherProvider = (props: any) => {
             if (!response.ok) {
                 throw new Error(data.message || "failed");
             }
-            console.log(data)
             return data;
         } catch (error) {
-            console.error("login error:", error);
             throw error;
         }
     };

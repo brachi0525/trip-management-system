@@ -35,29 +35,41 @@ export const DashbordStudents = () => {
         getStudents();
     }, []);
 
+
     const listStudents = studentsFilteredData.map(person => (
-        <li key={person.studentID}>
-            <p>
-                {person.fullName}: {person.studentID}: {person.classNumber}
-            </p>
-        </li>
-    ));
+    <tr key={person.studentID}>
+        <td style={{ border: '1px solid', padding: '8px' }}>{person.fullName}</td>
+        <td style={{ border: '1px solid', padding: '8px' }}>{person.studentID}</td>
+        <td style={{ border: '1px solid', padding: '8px' }}>{person.classNumber}</td>
+    </tr>
+));
 
     return (
         <div className="container">
             <h1>טבלת תלמידות</h1>
 
             <form >
-                <input type="text" name="fullName" placeholder="search  name" value={filterData.fullName} onChange={handleChange} />
-                <input type="text" name="studentID" placeholder="search studentID" value={filterData.studentID} onChange={handleChange} />
-                <input type="text" name="classNumber" placeholder="search classNumber" value={filterData.classNumber} onChange={handleChange} />
+                <input type="text" name="fullName" placeholder="חפש לפי שם" value={filterData.fullName} onChange={handleChange} />
+                <input type="text" name="studentID" placeholder="חפש לפי תז" value={filterData.studentID} onChange={handleChange} />
+                <input type="text" name="classNumber" placeholder="חפש לפי מספר כיתה" value={filterData.classNumber} onChange={handleChange} />
                 <br />
                 <button type="button" onClick={handleSearch}>חפש</button>
                 <button type="button" onClick={handleClear} >נקה חיפוש</button>
 
             </form>
 
-            <ul>{listStudents}</ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th > שם מלא </th>
+                        <th > תעודת זהות </th>
+                        <th > כיתה </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listStudents}
+                </tbody>
+            </table>
         </div>
     )
 }

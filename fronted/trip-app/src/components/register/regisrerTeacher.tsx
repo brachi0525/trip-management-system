@@ -20,14 +20,12 @@ export const RegisrerTeacher = () => {
             setFormData({ fullName: "", classNumber: "", teacherID: "", password: "" });
             const teacher = await registerTeacher(newTeacher)
             if (teacher) {
-                console.log(teacher)
                 alert("Teacher added  successfully ");
                 navigate("/Login");
             }
 
         } catch (error) {
              alert(error.message);
-            console.log(error);
 
         }
     };

@@ -15,10 +15,13 @@ export const StudentProvider = (props: any) => {
 
     const registerStudent = async (student: student) => {
         try {
+            const token = localStorage.getItem("token");
             const response = await fetch("http://localhost:3000/student/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+
                 },
                 body: JSON.stringify(student),
             });
@@ -30,7 +33,6 @@ export const StudentProvider = (props: any) => {
             setStudents((prev) => [...prev, data]);
             return true;
         } catch (error) {
-            console.log("register error", error);
             throw error
 
         }
@@ -51,7 +53,6 @@ export const StudentProvider = (props: any) => {
                 }
             );
             const data = await response.json();
-            console.log(data)
             setStudents(data);
         } catch (error) {
 

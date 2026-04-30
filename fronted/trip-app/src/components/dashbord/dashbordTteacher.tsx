@@ -33,27 +33,38 @@ export const DashbordTeacher = () => {
 
 
 
-    const listTeachers = teachersShow.map(person =>
-        <li>
-            <p>
-                {person.fullName}: {person.teacherID}: {person.classNumber}
-            </p>
-        </li>
-    );
+    const listTeachers = teachersShow.map(person => (
+        <tr key={person.teacherID}>
+            <td style={{ border: '1px solid', padding: '8px' }}>{person.fullName}</td>
+            <td style={{ border: '1px solid', padding: '8px' }}>{person.teacherID}</td>
+            <td style={{ border: '1px solid', padding: '8px' }}>{person.classNumber}</td>
+        </tr>
+    ));
 
     return (
         <div className="container">
             <h1>טבלת מורות</h1>
 
             <form >
-                <input type="text" name="fullName" placeholder="search  name" value={filterData.fullName} onChange={handleChange} />
-                <input type="text" name="classNumber" placeholder="search classNumber" value={filterData.classNumber} onChange={handleChange} />
-                <input type="text" name="teacherID" placeholder="search teacherID" value={filterData.teacherID} onChange={handleChange} />
+                <input type="text" name="fullName" placeholder="חפש לפי שם" value={filterData.fullName} onChange={handleChange} />
+                <input type="text" name="classNumber" placeholder="חפש לפי כיתה" value={filterData.classNumber} onChange={handleChange} />
+                <input type="text" name="teacherID" placeholder="חפש לפי תז" value={filterData.teacherID} onChange={handleChange} />
                 <br />
                 <button type="button" onClick={handleSearch}>חפש</button>
                 <button type="button" onClick={handleClear} >נקה חיפוש</button>
             </form>
-            <ul>{listTeachers}</ul>;
+            <table>
+                <thead>
+                    <tr>
+                        <th > שם מלא </th>
+                        <th > תעודת זהות </th>
+                        <th > כיתה </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listTeachers}
+                </tbody>
+            </table>
         </div>
 
     )

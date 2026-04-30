@@ -21,7 +21,6 @@ export const sendLocation = async (locations: location[]) => {
       const student = await studentRepo.getByID(String(item.id));
 
       if (!student) {
-        console.log("Student not found:", item.id);
         continue;
       }
 
